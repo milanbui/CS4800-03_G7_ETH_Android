@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../Data/DummyData.dart';
+import '../Data/Product.dart';
+
 class ListingScreen extends StatefulWidget {
+  int productListIndex;
+  ListingScreen(this.productListIndex);
+
   @override
-  State<ListingScreen> createState() => _ListingScreenState();
+  State<ListingScreen> createState() => _ListingScreenState(DummyData.productList[productListIndex]);
 }
 
 class _ListingScreenState extends State<ListingScreen> {
+  Product currentViewingProduct;
+  _ListingScreenState(this.currentViewingProduct);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,26 +23,34 @@ class _ListingScreenState extends State<ListingScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 15),
+            SizedBox(height: 70),
             Expanded(
                 flex: 40,
-                child: Image.asset('assets/images/placeholder.png', scale: 0.6)
+                child: currentViewingProduct.image
+                // Ink.image(
+                //   image: currentViewingProduct.image.image,
+                //   fit: BoxFit.cover,
+                //   width: 350,
+                //   height: 128,
+                //   // child: InkWell(onTap: onClicked),
+                // ),
             ),
             Expanded(
-              flex: 40,
+              flex: 30,
               child: Container(
-                margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                margin: EdgeInsets.fromLTRB(15, 15, 15, 15),
                 child: Column(
                   children: [
-                    Text("Product Name", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                    Text(currentViewingProduct.getName(), style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                     SizedBox(height: 15),
-                    Text("\$30", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                    Text(currentViewingProduct.getPrice().toString() + " ETH", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                     SizedBox(height: 15),
-                    Text("Description", style: TextStyle(fontSize: 16)),
+                    Text(currentViewingProduct.getDescription(), style: TextStyle(fontSize: 16)),
                   ],
                 ),
               ),
             ),
+            !DummyData.IsUserListedProduct(currentViewingProduct)?
             Expanded(
               flex: 20,
               child: Container(
@@ -46,10 +63,18 @@ class _ListingScreenState extends State<ListingScreen> {
                   ),
                   child: Text("Add to Cart", style: TextStyle(fontSize: 18)),
                   onPressed: () {
+                    DummyData.addToCart(currentViewingProduct);
+                    showDialog(context: context, builder: (context) {
+                      return AlertDialog(
+                        title: Text("Added to Cart!"),
+                        content: Text(currentViewingProduct.getName() + " has been successfully added to cart.")
+                      );
+                    });
+
                   },
                 ),
               ),
-            ),
+            ) : SizedBox(height: 5),
           ],
         ),
       ),

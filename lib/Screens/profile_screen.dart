@@ -1,5 +1,9 @@
+import 'package:cs4800_cipher_app/Data/DummyData.dart';
+import 'package:cs4800_cipher_app/Screens/user_listings_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'list_product_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -42,6 +46,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     child: Text("List New Product", style: TextStyle(fontSize: 15)),
                     onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ListNewProduct()),
+                      );
                     },
                   ),
                   SizedBox(width: 25),
@@ -53,6 +61,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     child: Text("View Listings", style: TextStyle(fontSize: 15)),
                     onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserListingList()),
+                      );
                     },
                   ),
                 ]
@@ -65,74 +77,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-                    child: Text("Owned Items", style: TextStyle(fontSize: 20)),
-                  ),
-                  Expanded(
-                    child: ListView(
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: Row (
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Image.asset('assets/images/placeholder.png'),
-                                SizedBox(width: 20,),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: 10),
-                                    Text("Product Name", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                                    SizedBox(height: 5),
-                                    Text("\$30", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.black,
-                                        elevation: 0,
-                                        minimumSize: Size(130, 35),
-                                      ),
-                                      child: Text("View Order", style: TextStyle(fontSize: 15)),
-                                      onPressed: () {
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ]
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: Row (
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Image.asset('assets/images/placeholder.png'),
-                                SizedBox(width: 20,),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: 10),
-                                    Text("Product Name", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                                    SizedBox(height: 5),
-                                    Text("\$30", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.black,
-                                        elevation: 0,
-                                        minimumSize: Size(130, 35),
-                                      ),
-                                      child: Text("View Order", style: TextStyle(fontSize: 15)),
-                                      onPressed: () {
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ]
-                          ),
-                        ),
+                        Text("Owned Items", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        Divider(thickness: 5),
                       ],
+                    )
+
+                  ),
+
+                  Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: _pullRefresh,
+                      child: ListView.builder(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        itemCount: DummyData.ownedItmes.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ownedItem(index);
+                        },
+
+
+                      ),
                     ),
                   ),
                 ],
@@ -142,5 +109,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  Widget ownedItem(int index) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Row (
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Ink.image(
+                fit: BoxFit.cover,
+                image: DummyData.ownedItmes[index].image.image,
+                width:128,
+              height: 128,
+            ),
+            SizedBox(width: 20,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // SizedBox(height: 10),
+                Text(DummyData.ownedItmes[index].getName(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                // SizedBox(height: 5),
+                Text(DummyData.ownedItmes[index].getPrice() + " ETH", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    elevation: 0,
+                    minimumSize: Size(130, 35),
+                  ),
+                  child: Text("View Order", style: TextStyle(fontSize: 15)),
+                  onPressed: () {
+                  },
+                ),
+              ],
+            ),
+          ]
+      ),
+    );
+  }
+
+  Future<void> _pullRefresh() async {
+    setState(() {
+
+    });
   }
 }
