@@ -1,6 +1,7 @@
 import 'package:cs4800_cipher_app/Data/DummyData.dart';
 import 'package:cs4800_cipher_app/Screens/user_listings_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cs4800_cipher_app/Screens/view_orders_screen.dart';
+import 'package:cs4800_cipher_app/Screens/wallet_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'list_product_screen.dart';
@@ -25,10 +26,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(width: 25),
-                  Image.asset('assets/images/profile.png'),
-                  SizedBox(width: 20),
-                  Text('Profile', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30))
+                  Expanded(
+                      flex: 30,
+                      child: Image.asset('assets/images/profile.png')
+                  ),
+                  Expanded(
+                      flex: 50,
+                      child: Text(DummyData.UserName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30))
+                  ),
+                  Expanded(
+                      flex: 20,
+                      child: IconButton(
+                          onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => WalletScreen()),
+                            );
+                          },
+                          icon: Icon(Icons.credit_card))
+                  ),
                 ]
               ),
             ),
@@ -81,7 +97,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Owned Items", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        Row(
+                          children: [
+                            Expanded(
+                                flex: 60,
+                                child: Text("Owned Items", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+                            Expanded(
+                              flex: 40,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.black,
+                                  elevation: 0,
+                                  minimumSize: Size(160, 35),
+                                ),
+                                child: Text("View Orders", style: TextStyle(fontSize: 15)),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => ViewOrdersScreen()),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                         Divider(thickness: 5),
                       ],
                     )
@@ -93,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onRefresh: _pullRefresh,
                       child: ListView.builder(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        itemCount: DummyData.ownedItmes.length,
+                        itemCount: DummyData.ownedItems.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ownedItem(index);
                         },
@@ -119,7 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: <Widget>[
             Ink.image(
                 fit: BoxFit.cover,
-                image: DummyData.ownedItmes[index].image.image,
+                image: DummyData.ownedItems[index].image.image,
                 width:128,
               height: 128,
             ),
@@ -129,19 +168,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // SizedBox(height: 10),
-                Text(DummyData.ownedItmes[index].getName(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                Text(DummyData.ownedItems[index].getName(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 // SizedBox(height: 5),
-                Text(DummyData.ownedItmes[index].getPrice() + " ETH", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    elevation: 0,
-                    minimumSize: Size(130, 35),
-                  ),
-                  child: Text("View Order", style: TextStyle(fontSize: 15)),
-                  onPressed: () {
-                  },
-                ),
+                Text(DummyData.ownedItems[index].getPrice() + " ETH", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+
               ],
             ),
           ]

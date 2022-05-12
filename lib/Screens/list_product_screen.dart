@@ -47,6 +47,7 @@ class _ListNewProductState extends State<ListNewProduct> {
                   SizedBox(height: 5,),
                   Divider(thickness: 5),
                   SizedBox(height: 5,),
+                  SizedBox(height: 5,),
                   Text("Listing Photo", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 ]
             ),

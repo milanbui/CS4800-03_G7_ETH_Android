@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Order.dart';
 import 'Product.dart';
 
 class DummyData
@@ -16,10 +17,16 @@ class DummyData
   static List<Product> userListings = List.empty(growable: true);
 
   // products listed in profile_screen under Owned Items
-  static List<Product> ownedItmes = List.empty(growable: true);
+  static List<Product> ownedItems = List.empty(growable: true);
+
+  // list of crypto wallets connected
+  static List<String> wallets = List.empty(growable: true);
+
+  // list of crypto wallets connected
+  static List<Order> orders = List.empty(growable: true);
 
   // for login_screen credentials
-  static String UserEmail = "user";
+  static String UserEmail = "user@email.com";
   static String UserPW = "pw";
   static String UserName = "John Smith"; // Not necessary yet?
 
@@ -30,8 +37,10 @@ class DummyData
     productList.add(new Product("Circles", "42.34", "This is NFT1", Image.asset('assets/images/yellowcircles.jpg', fit: BoxFit.cover)));
     productList.add(new Product("Pop Art", "29.23", "This is NFT1", Image.asset('assets/images/tiger.jpg',  fit: BoxFit.cover)));
 
-    ownedItmes.add(new Product("Grass Is Greener", "4.53", "Grass is greener where you water it :)", Image.asset('assets/images/cuphead.jpg',  fit: BoxFit.cover)));
-    ownedItmes.add(new Product("Cuphead", "0.97", "He needs som milk", Image.asset('assets/images/greenergrass.jpg',  fit: BoxFit.cover)));
+    productList.add(new Product("Grass Is Greener", "4.53", "Grass is greener where you water it :)", Image.asset('assets/images/cuphead.jpg',  fit: BoxFit.cover)));
+    productList.add(new Product("Cuphead", "0.97", "He needs som milk", Image.asset('assets/images/greenergrass.jpg',  fit: BoxFit.cover)));
+
+    wallets.add("0xb794f5ea0ba39494ce839613fffba74279579268");
   }
 
   static void addToCart(Product product)
@@ -44,6 +53,7 @@ class DummyData
     userListings.add(product);
     itemCount++;
   }
+
 
   static void removeFromListings(product)
   {

@@ -1,4 +1,5 @@
 import 'package:cs4800_cipher_app/Data/DummyData.dart';
+import 'package:cs4800_cipher_app/Screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../Data/Product.dart';
@@ -10,7 +11,21 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
 
+  double total = 0;
 
+  initState() {
+    total = calcTotal();
+  }
+
+  double calcTotal() {
+    double sum = 0;
+
+    for( int i = 0; i < DummyData.cartList.length; i++) {
+      sum += double.parse(DummyData.cartList.elementAt(i).price);
+    }
+
+    return sum;
+  }
 
   Container cartItem(int index)
   {
@@ -54,7 +69,7 @@ class _CartScreenState extends State<CartScreen> {
                           );
                         });
                         setState(() {
-
+                          total = calcTotal();
                         });
                       },
                     ),
@@ -74,7 +89,7 @@ class _CartScreenState extends State<CartScreen> {
   Future<void> _pullRefresh() async
   {
     setState(() {
-
+      total = calcTotal();
     });
   }
 
@@ -120,6 +135,14 @@ class _CartScreenState extends State<CartScreen> {
             Container(
                 padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                 child: Divider(height: 10, thickness: 3,)),
+            Container(
+                margin: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                child: Text(total.toStringAsFixed(2) + " ETH", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30))
+            ),
+            Container(
+                padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                child: Divider(height: 10, thickness: 3,)
+            ),
             SizedBox(height: 10),
             Expanded(
               flex: 10,
@@ -132,7 +155,10 @@ class _CartScreenState extends State<CartScreen> {
                 child: Text("Proceed to Purchase", style: TextStyle(fontSize: 18)),
                 onPressed: () {
 
-                  // Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                      MaterialPageRoute(builder: (context) => CheckoutScreen())
+                  );
 
                 },
               )
