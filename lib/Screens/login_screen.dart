@@ -1,3 +1,4 @@
+import 'package:cs4800_cipher_app/Data/DummyData.dart';
 import 'package:flutter/material.dart';
 import 'package:cs4800_cipher_app/bottom_navigation_bar_state.dart';
 
@@ -82,10 +83,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: Text("log in", style: TextStyle(fontSize: 18)),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BottomNavBarState()),
-                      );
+                      if(emailController.text.compareTo(DummyData.UserEmail) == 0 &&
+                      passwordController.text.compareTo(DummyData.UserPW) == 0 )
+                        {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => BottomNavBarState()),
+                          );
+                        }
+                      else
+                        {
+                          showDialog(context: context, builder: (context) {
+                            return AlertDialog(
+                                title: Text("Wrong Credentials"),
+                                content: Text("Entered email or password does not match our records. Pleas try again.")
+                            );
+                          });
+                        }
                     },
                   ),
                 ),

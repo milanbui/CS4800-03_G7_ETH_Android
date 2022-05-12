@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cs4800_cipher_app/Screens/login_screen.dart';
 
+import 'Data/DummyData.dart';
+
 void main() {
+  DummyData dummyData = DummyData();
   runApp(const MyApp());
 }
 
@@ -11,6 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
