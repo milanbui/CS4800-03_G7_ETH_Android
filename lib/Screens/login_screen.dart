@@ -1,4 +1,5 @@
 import 'package:cs4800_cipher_app/Data/DummyData.dart';
+import 'package:cs4800_cipher_app/Screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cs4800_cipher_app/bottom_navigation_bar_state.dart';
 
@@ -25,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget> [
               Expanded(
-                flex: 70,
+                flex: 60,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,37 +72,50 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Expanded(
-                flex: (MediaQuery.of(context).viewInsets.bottom == 0) ? 30 : 60,
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(0, 95, 0, 95),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF000000),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      minimumSize: Size(200, 35),
+                flex: (MediaQuery.of(context).viewInsets.bottom == 0) ? 30 : 50,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 95, 0, 20),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF000000),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          minimumSize: Size(200, 35),
+                        ),
+                        child: Text("log in", style: TextStyle(fontSize: 18)),
+                        onPressed: () {
+                          if(emailController.text.compareTo(DummyData.UserEmail) == 0 &&
+                          passwordController.text.compareTo(DummyData.UserPW) == 0 )
+                            {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => BottomNavBarState()),
+                              );
+                            }
+                          else
+                            {
+                              showDialog(context: context, builder: (context) {
+                                return AlertDialog(
+                                    title: Text("Wrong Credentials"),
+                                    content: Text("Entered email or password does not match our records. Pleas try again.")
+                                );
+                              });
+                            }
+                        },
+                      ),
                     ),
-                    child: Text("log in", style: TextStyle(fontSize: 18)),
-                    onPressed: () {
-                      if(emailController.text.compareTo(DummyData.UserEmail) == 0 &&
-                      passwordController.text.compareTo(DummyData.UserPW) == 0 )
-                        {
+                    TextButton(
+                        onPressed: (){
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => BottomNavBarState()),
+                              context,
+                              MaterialPageRoute(builder: (context) => SignUpScreen())
                           );
-                        }
-                      else
-                        {
-                          showDialog(context: context, builder: (context) {
-                            return AlertDialog(
-                                title: Text("Wrong Credentials"),
-                                content: Text("Entered email or password does not match our records. Pleas try again.")
-                            );
-                          });
-                        }
-                    },
-                  ),
+                        },
+                        child: Text("Don't have an account? Sign Up", style: TextStyle(color: Colors.black))
+                    )
+                  ],
                 ),
               ),
             ],
