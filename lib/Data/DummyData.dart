@@ -30,6 +30,7 @@ class DummyData
   static String UserPW = "pw";
   static String UserName = "John Smith"; // Not necessary yet?
 
+
   DummyData() {
     productList.add(new Product("Neon Disclosure", "29.99", "A rare instance of a kirby in the wild for a hunt", Image.asset('assets/images/disclosure.png', fit: BoxFit.cover)));
     productList.add(new Product("Waverly World", "1.99", "I sell waterguns full of cat pee to children", Image.asset('assets/images/creativity.jpg', fit: BoxFit.cover)));
@@ -37,8 +38,8 @@ class DummyData
     productList.add(new Product("Circles", "42.34", "This is NFT1", Image.asset('assets/images/yellowcircles.jpg', fit: BoxFit.cover)));
     productList.add(new Product("Pop Art", "29.23", "This is NFT1", Image.asset('assets/images/tiger.jpg',  fit: BoxFit.cover)));
 
-    productList.add(new Product("Grass Is Greener", "4.53", "Grass is greener where you water it :)", Image.asset('assets/images/cuphead.jpg',  fit: BoxFit.cover)));
-    productList.add(new Product("Cuphead", "0.97", "He needs som milk", Image.asset('assets/images/greenergrass.jpg',  fit: BoxFit.cover)));
+    productList.add(new Product("Grass Is Greener", "4.53", "Grass is greener where you water it :)", Image.asset('assets/images/greenergrass.jpg',  fit: BoxFit.cover)));
+    productList.add(new Product("Cuphead", "0.97", "He needs som milk", Image.asset('assets/images/cuphead.jpg',  fit: BoxFit.cover)));
 
     wallets.add("0xb794f5ea0ba39494ce839613fffba74279579268");
   }

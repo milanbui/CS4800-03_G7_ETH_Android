@@ -1,4 +1,5 @@
 import 'package:cs4800_cipher_app/Data/DummyData.dart';
+import 'package:cs4800_cipher_app/Screens/profile_detail_screen.dart';
 import 'package:cs4800_cipher_app/Screens/user_listings_screen.dart';
 import 'package:cs4800_cipher_app/Screens/view_orders_screen.dart';
 import 'package:cs4800_cipher_app/Screens/wallet_screen.dart';
@@ -28,7 +29,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Expanded(
                       flex: 30,
-                      child: Image.asset('assets/images/profile.png')
+                      child: InkWell(
+                          child: Image.asset('assets/images/profile.png'),
+                      onTap: (){
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => ProfileDetailScreen()),
+                        // );
+                      },)
                   ),
                   Expanded(
                       flex: 50,

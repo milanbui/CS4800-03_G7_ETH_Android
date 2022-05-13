@@ -44,12 +44,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     Container(
                       margin: EdgeInsets.fromLTRB(20, 35, 15, 0),
                       child:
-                      Text("Name: " + DummyData.UserName, style: TextStyle(fontSize: 20))
+                      Row(
+                        children: [
+                          Text("Name: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          Text(DummyData.UserName, style: TextStyle(fontSize: 20)),
+                        ],
+                      )
                     ),
                     Container(
                         margin: EdgeInsets.fromLTRB(20, 15, 15, 15),
                         child:
-                        Text("Email: " + DummyData.UserEmail, style: TextStyle(fontSize: 20))
+                        Row(
+                          children: [
+                            Text("Email: ", style: TextStyle(fontSize: 20,  fontWeight: FontWeight.bold)),
+                            Text(DummyData.UserEmail, style: TextStyle(fontSize: 20)),
+                          ],
+                        )
                     ),
                   ],
                 ),
@@ -66,7 +76,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     Container(
                         margin: EdgeInsets.fromLTRB(20, 35, 15, 0),
                         child:
-                        Text("Select Wallet: ", style: TextStyle(fontSize: 20))
+                        Text("Select Wallet: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(20, 35, 20, 0),

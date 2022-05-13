@@ -44,7 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           filled: true,
                           fillColor: Colors.white,
-                          labelText: 'name',
+                          labelText: '*name',
                           labelStyle: TextStyle(fontSize: 18, color: Color(0xFF7C7C7C)),
                         ),
                       ),
@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           filled: true,
                           fillColor: Colors.white,
-                          labelText: 'email',
+                          labelText: '*email',
                           labelStyle: TextStyle(fontSize: 18, color: Color(0xFF7C7C7C)),
                         ),
                       ),
@@ -80,7 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           filled: true,
                           fillColor: Colors.white,
-                          labelText: 'crypto wallet address',
+                          labelText: '*crypto wallet address',
                           labelStyle: TextStyle(fontSize: 18, color: Color(0xFF7C7C7C)),
                         ),
                       ),
@@ -98,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           filled: true,
                           fillColor: Colors.white,
-                          labelText: 'password',
+                          labelText: '*password',
                           labelStyle: TextStyle(fontSize: 18, color: Color(0xFF7C7C7C)),
                         ),
                       ),
@@ -116,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           filled: true,
                           fillColor: Colors.white,
-                          labelText: 'confirm password',
+                          labelText: '*confirm password',
                           labelStyle: TextStyle(fontSize: 18, color: Color(0xFF7C7C7C)),
                         ),
                       ),
@@ -138,10 +138,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           minimumSize: Size(200, 35),
                         ),
                         child: Text("sign up", style: TextStyle(fontSize: 18)),
-                        onPressed: () {
-                          if(emailController.text.compareTo(DummyData.UserEmail) == 0 &&
-                              passwordController.text.compareTo(DummyData.UserPW) == 0 )
+                        onPressed: () async {
+                          if(passwordController.text.compareTo(confirmPasswordController.text) != 0)
+                            {
+                              showDialog(context: context, builder: (context) {
+                                return AlertDialog(
+                                    title: Text("Unmatching Passwords"),
+                                    content: Text("Please enter the same password in \'confirm password\' field.")
+                                );
+                              });
+                            }
+                          else if(emailController.text.isNotEmpty && nameController.text.isNotEmpty && passwordController.text.isNotEmpty && confirmPasswordController.text.isNotEmpty)
                           {
+                            DummyData.UserName = nameController.text;
+                            DummyData.wallets.clear();
+                            DummyData.wallets.add(walletController.text);
+
+                            await showDialog(context: context, builder: (context) {
+                              return AlertDialog(
+                                  title: Text("Account Created!"),
+                                  content: Text("Your new account has been created! Signing you in...")
+                              );
+                            });
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => BottomNavBarState()),
@@ -151,8 +170,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           {
                             showDialog(context: context, builder: (context) {
                               return AlertDialog(
-                                  title: Text("Wrong Credentials"),
-                                  content: Text("Entered email or password does not match our records. Pleas try again.")
+                                  title: Text("Not Completed"),
+                                  content: Text("Please complete all the required fields.")
                               );
                             });
                           }

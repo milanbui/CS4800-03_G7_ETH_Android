@@ -105,6 +105,12 @@ class _WalletScreenState extends State<WalletScreen> {
                                     ),
                                     child: Text("Remove", style: TextStyle(fontSize: 15)),
                                     onPressed: () {
+                                      showDialog(context: context, builder: (context) {
+                                        return AlertDialog(
+                                            title: Text("New Wallet Added!"),
+                                            content: Text("New crypto wallet has been added!")
+                                        );
+                                      });
                                       setState(() {
                                         DummyData.wallets.removeAt(index);
                                       });

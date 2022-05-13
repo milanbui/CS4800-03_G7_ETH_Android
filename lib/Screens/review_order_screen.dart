@@ -58,7 +58,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                         DummyData.cartList.removeAt(index);
                         showDialog(context: context, builder: (context) {
                           return AlertDialog(
-                              title: Text("Removed from Cart!"),
+                              title: Text("Removed from Order!"),
                               content: Text(product.getName() + " has been successfully removed from cart.")
                           );
                         });
@@ -121,12 +121,22 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                 Container(
                     margin: EdgeInsets.fromLTRB(20, 15, 15, 0),
                     child:
-                    Text("Name: " + DummyData.UserName, style: TextStyle(fontSize: 20))
+                    Row(
+                      children: [
+                        Text("Name: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        Text(DummyData.UserName, style: TextStyle(fontSize: 20)),
+                      ],
+                    )
                 ),
                 Container(
                     margin: EdgeInsets.fromLTRB(20, 15, 15, 0),
                     child:
-                    Text("Email: " + DummyData.UserEmail, style: TextStyle(fontSize: 20))
+                    Row(
+                      children: [
+                        Text("Email: ", style: TextStyle(fontSize: 20,  fontWeight: FontWeight.bold)),
+                        Text(DummyData.UserEmail, style: TextStyle(fontSize: 20)),
+                      ],
+                    )
                 ),
               ],
             ),
@@ -143,7 +153,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                 Container(
                     margin: EdgeInsets.fromLTRB(20, 15, 15, 0),
                     child:
-                    Text("Review Order: ", style: TextStyle(fontSize: 20))
+                    Text("Review Order: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
                 ),
                 Expanded(
                   child: Container(
